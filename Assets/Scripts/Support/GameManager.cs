@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Component Reference")]
     [SerializeField] public GameObject confetti;
+    [SerializeField] public Spider spider;
+    [SerializeField] public Knife knife;
+
 
     [Header("Game Attributes")]
     [SerializeField] private int currentScore;
@@ -46,6 +49,8 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.SwitchUIPanel(UIPanelState.Gameplay);       
         currentState = GameState.InGame;
+        knife.enabled = true;
+        spider.enabled = true;
     }
  
 

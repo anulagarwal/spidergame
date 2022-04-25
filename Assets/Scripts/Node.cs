@@ -1,29 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+
+[ExecuteInEditMode]
 public class Node : MonoBehaviour {
 	public List<Node> neighbours;
-	public int x;
-	public int y;
-	
-	public Node() {
+	[SerializeField] LineRenderer lr;
+
+    private void Start()
+    {
+		
+       
+    }
+
+    private void Update()
+    {
+        lr.positionCount = neighbours.Count * 3 ;
+
+        for (int i = 0; i < neighbours.Count; i++)
+        {
+            lr.SetPosition(i * 3, transform.position);
+            lr.SetPosition(i * 3 + 1, neighbours[i].transform.position);
+            lr.SetPosition(i * 3 + 2, transform.position);
+        }
+    }
+    public Node() {
 		neighbours = new List<Node>();
 	}
 	
-	public float DistanceTo(Node n) {
-		if(n == null) {
-			Debug.LogError("WTF?");
-		}
-		
-		return Vector2.Distance(
-			new Vector2(x, y),
-			new Vector2(n.x, n.y)
-			);
-	}
+
 
     private void OnMouseDown()
     {
-		MapGenerator.Instance.GeneratePathTo(MapGenerator.Instance.nodes[2], this)[0].GetComponent<MeshRenderer>().material.color = Color.red;
+       // Spider.Instance.MoveToNode(this);
 		//print(MapGenerator.Instance.nodes[0]);
     }
 }

@@ -33,10 +33,10 @@ public enum Sound
     Lose
 }
 
-public enum TileState
+public enum SpiderState
 {
 
-    New,
-    Wall,
-    Cat
+    Idle,
+    Walk,
+    Bite
 }
