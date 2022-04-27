@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Obi;
+
 public class NeighborManager : MonoBehaviour
 {
 
@@ -19,6 +21,8 @@ public class NeighborManager : MonoBehaviour
     [SerializeField] public Node playerNode;
     [SerializeField] public GameObject lineRendererPool;
     [SerializeField] public List<GameObject> lines;
+    [SerializeField] public List<GameObject> obiRopeWebList;
+    [SerializeField] public GameObject obiSolver, obiRopeWeb;
 
     public bool hasCutInSwipe = false;
     public static NeighborManager Instance = null;
@@ -42,14 +46,36 @@ public class NeighborManager : MonoBehaviour
             {
                 if (neighbors.Find(x => x.n1 == a && x.n2 == n) == null && neighbors.Find(x => x.n1 == n && x.n2 == a) == null)
                 {
-                    GameObject l = Instantiate(lineRendererPool, this.transform);
+                    GameObject l = Instantiate(lineRendererPool, this.transform);   
                     l.transform.position = (n.transform.position + a.transform.position) / 2;
-                    l.GetComponent<LineRenderer>(). positionCount = 2;
+
+                    GameObject j = Instantiate(obiRopeWeb, this.transform);
+                    j.transform.SetParent(obiSolver.transform);
+                    j.transform.position = Vector3.zero;// (n.transform.position + a.transform.position) / 2;
+                    
+                    l.GetComponent<LineRenderer>().positionCount = 2;
                     l.GetComponent<LineRenderer>().SetPosition(0, n.transform.position);
+
+                    j.transform.GetChild(0).transform.localPosition = l.GetComponent<LineRenderer>().GetPosition(0);
+                    
+                    //j.GetComponent<ObiParticleAttachment>().target = n.transform;
+                    //Component[] startEndPoints = j.GetComponents(typeof(ObiParticleAttachment));// j.GetComponents(typeof(ObiParticleAttachment));
+                    //foreach(ObiParticleAttachment obj in startEndPoints)
+                    //{
+                    //    obj.target = n.transform;
+                    // //   obj.target = a.transform;
+                    //    print("----");
+                    //}
+                    //
+
                     l.GetComponent<LineRenderer>().SetPosition(1, a.transform.position);
+
+                    j.transform.GetChild(1).transform.localPosition = l.GetComponent<LineRenderer>().GetPosition(1);
+
                     AddNeighbor(n, a, l.GetComponentInChildren<TextMeshPro>());
 
                     lines.Add(l);
+                    obiRopeWebList.Add(j);
 
                 }
             }
@@ -109,7 +135,9 @@ public class NeighborManager : MonoBehaviour
         n.n1.neighbours.Remove(n.n2);
         n.n2.neighbours.Remove(n.n1);
         Destroy(lines[neighbors.FindIndex(x => x == n)]);
+        Destroy(obiRopeWebList[neighbors.FindIndex(x => x == n)]);
         lines.Remove(lines[neighbors.FindIndex(x => x == n)]);
+        obiRopeWebList.Remove(obiRopeWebList[neighbors.FindIndex(x => x == n)]);
         neighbors.Remove(n);
     }
     public void AddNeighbor(Node n1, Node n2, TextMeshPro tp)
