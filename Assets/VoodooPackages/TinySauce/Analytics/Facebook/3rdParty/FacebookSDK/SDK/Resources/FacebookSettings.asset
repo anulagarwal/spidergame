@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 0
+  - 678460806772632
   appLabels:
-  - App Name
+  - Spider Game
   cookie: 1
   logging: 1
   status: 1

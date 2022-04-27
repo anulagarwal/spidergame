@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class GameManager : MonoBehaviour
 {
     #region Properties
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviour
         currentLevel = PlayerPrefs.GetInt("level", 1);       
         UIManager.Instance.UpdateLevel(currentLevel);
         currentState = GameState.Main;
-        maxLevels = 1;     
+        maxLevels = 1;
     }
 
     #endregion
@@ -51,8 +50,9 @@ public class GameManager : MonoBehaviour
         currentState = GameState.InGame;
         knife.enabled = true;
         spider.enabled = true;
+        TinySauce.OnGameStarted(currentLevel + "");
     }
- 
+
 
     public void WinLevel()
     {
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
             Invoke("ShowWinUI", 1.4f);
           
             currentState = GameState.Win;
+            TinySauce.OnGameFinished(true, 0);
 
             PlayerPrefs.SetInt("level", currentLevel + 1);
             currentLevel++;
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour
         {
             Invoke("ShowLoseUI", 2f);
             currentState = GameState.Lose;
+            TinySauce.OnGameFinished(false, 0);
         }
     }
 
