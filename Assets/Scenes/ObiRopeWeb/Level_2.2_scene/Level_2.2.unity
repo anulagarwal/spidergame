@@ -4922,6 +4922,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1629230538}
   - component: {fileID: 1629230534}
+  - component: {fileID: 1629230536}
+  - component: {fileID: 1629230535}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -4942,12 +4944,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentNode: {fileID: 1673899535}
-  moveSpeed: 0.01
+  moveSpeed: 0.05
   animator: {fileID: 915511223}
   minDistance: 0.2
   currentState: 0
   Target: {fileID: 0}
   RotationSpeed: 1
+--- !u!114 &1629230535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629230533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 1629230536}
+  m_DistanceField: {fileID: 0}
+--- !u!65 &1629230536
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629230533}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5024316, y: 0.45, z: 0.57}
+  m_Center: {x: 0.24878427, y: 0, z: 1.727566e-17}
 --- !u!4 &1629230538
 Transform:
   m_ObjectHideFlags: 0
@@ -6391,7 +6423,7 @@ MonoBehaviour:
   parameters:
     mode: 0
     interpolation: 0
-    gravity: {x: 0, y: -7, z: 0}
+    gravity: {x: 0, y: -5, z: 0}
     damping: 0
     maxAnisotropy: 3
     sleepThreshold: 0.001

@@ -15,6 +15,7 @@ public class RopeSweepCut : MonoBehaviour
 
     private void Awake()
     {
+        cam = Camera.main;
         rope = GetComponent<ObiRope>();
 
         AddMouseLine();
@@ -49,7 +50,8 @@ public class RopeSweepCut : MonoBehaviour
         if (cam == null) return;
 
         // process user input and cut the rope if necessary.
-        ProcessInput();
+        if(NeighborManager.Instance.enabled)
+            ProcessInput();
     }
 
     /**
@@ -60,6 +62,7 @@ public class RopeSweepCut : MonoBehaviour
         // When the user clicks the mouse, start a line cut:
         if (Input.GetMouseButtonDown(0))
         {
+            lineRenderer.enabled = false;
             cutStartPosition = Input.mousePosition;
             lineRenderer.SetPosition(0, cam.ScreenToWorldPoint(new Vector3(cutStartPosition.x, cutStartPosition.y, 0.5f)));
             lineRenderer.enabled = true;
@@ -71,16 +74,22 @@ public class RopeSweepCut : MonoBehaviour
         // When the user lifts the mouse, proceed to cut.
         if (Input.GetMouseButtonUp(0))
         {
-            ScreenSpaceCut(cutStartPosition, Input.mousePosition);
-            lineRenderer.enabled = false;
+            CallScreenSpaceCut();
         }
     }
+
+    public void CallScreenSpaceCut()
+    {
+        ScreenSpaceCut(cutStartPosition, Input.mousePosition);
+        lineRenderer.enabled = false;
+    }
+
 
 
     /**
      * Cuts the rope using a line segment, expressed in screen-space.
      */
-    private void ScreenSpaceCut(Vector2 lineStart, Vector2 lineEnd)
+    public void ScreenSpaceCut(Vector2 lineStart, Vector2 lineEnd)
     {
         // keep track of whether the rope was cut or not.
         bool cut = false;

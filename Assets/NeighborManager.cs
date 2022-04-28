@@ -135,9 +135,17 @@ public class NeighborManager : MonoBehaviour
         n.n1.neighbours.Remove(n.n2);
         n.n2.neighbours.Remove(n.n1);
         Destroy(lines[neighbors.FindIndex(x => x == n)]);
-        Destroy(obiRopeWebList[neighbors.FindIndex(x => x == n)]);
+
+        obiRopeWebList[neighbors.FindIndex(x => x == n)].GetComponent<RopeSweepCut>().enabled = true;
+        obiRopeWebList[neighbors.FindIndex(x => x == n)].GetComponent<RopeSweepCut>().CallScreenSpaceCut();
+        obiRopeWebList[neighbors.FindIndex(x => x == n)].transform.GetChild(0).gameObject.AddComponent<Rigidbody>();
+        obiRopeWebList[neighbors.FindIndex(x => x == n)].transform.GetChild(1).gameObject.AddComponent<Rigidbody>();
+        //Destroy(obiRopeWebList[neighbors.FindIndex(x => x == n)]);
+        
         lines.Remove(lines[neighbors.FindIndex(x => x == n)]);
+        
         obiRopeWebList.Remove(obiRopeWebList[neighbors.FindIndex(x => x == n)]);
+        
         neighbors.Remove(n);
     }
     public void AddNeighbor(Node n1, Node n2, TextMeshPro tp)
