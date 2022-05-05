@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeLevel()
     {
-        if (currentLevel > maxLevels)
+        /*if (currentLevel > maxLevels)
         {
             int newId = currentLevel % maxLevels;
             if (newId == 0)
@@ -95,7 +95,10 @@ public class GameManager : MonoBehaviour
         else
         {
             SceneManager.LoadScene("Level " + currentLevel);
-        }
+        }*/
+
+        SceneManager.LoadScene("Main");
+
     }
 
     #endregion
