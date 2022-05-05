@@ -52,7 +52,7 @@ public class NeighborManager : MonoBehaviour
                     GameObject j = Instantiate(obiRopeWeb, this.transform);
                     j.transform.SetParent(obiSolver.transform);
                     j.transform.position = Vector3.zero;// (n.transform.position + a.transform.position) / 2;
-                    
+//                    j.GetComponent<ObiRopeCursor>(). ChangeLength(Vector3.Distance(a.transform.position,n.transform.position));
                     l.GetComponent<LineRenderer>().positionCount = 2;
                     l.GetComponent<LineRenderer>().SetPosition(0, n.transform.position);
 
