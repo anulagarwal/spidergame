@@ -84,7 +84,7 @@ public class RopeSweepCut : MonoBehaviour
         lineRenderer.enabled = false;
     }
 
-
+    //FOR DANI - READ FROM HERE
 
     /**
      * Cuts the rope using a line segment, expressed in screen-space.

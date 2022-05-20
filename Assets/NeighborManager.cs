@@ -116,6 +116,16 @@ public class NeighborManager : MonoBehaviour
 
     }
 
+    public void EnablePlayerScare()
+    {
+        playerNode.GetComponentInChildren<Animator>().Play("Cry");
+    }
+
+    public void EnablePlayerWin()
+    {
+        playerNode.GetComponentInChildren<Animator>().Play("Win");
+    }
+
     public void SendSpiderToPlayer()
     {
         Spider.Instance.MoveToPlayer();

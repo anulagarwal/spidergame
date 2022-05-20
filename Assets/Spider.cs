@@ -50,6 +50,8 @@ public class Spider : MonoBehaviour
             if (currentNode == NeighborManager.Instance.playerNode)
             {
                 //Lose condition
+                NeighborManager.Instance.EnablePlayerScare();
+
                 Invoke("Lose", 1f);
                 UpdateState(SpiderState.Bite);
 
@@ -79,10 +81,7 @@ public class Spider : MonoBehaviour
             Quaternion lookRot = Quaternion.LookRotation(lookPos);
             lookRot.eulerAngles = new Vector3(lookRot.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * RotationSpeed);
-
-
            // this.transform.LookAt(targetPostition);
-
         }
     }
 
@@ -94,15 +93,13 @@ public class Spider : MonoBehaviour
             {
                 currentNode = MapGenerator.Instance.GeneratePathTo(currentNode, n)[1];
                 UpdateState(SpiderState.Walk);
-
             }
             else
             {
+                NeighborManager.Instance.EnablePlayerWin();
                 Invoke("Win", 1f);
             }
-        }
-
-        
+        }        
     }
 
     public void Win()
@@ -114,6 +111,7 @@ public class Spider : MonoBehaviour
     public void Lose()
     {
         GameManager.Instance.LoseLevel();
+
         NeighborManager.Instance.enabled = false;
         this.enabled = false;
     }
